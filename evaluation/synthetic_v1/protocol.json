@@ -1,0 +1,30 @@
+{
+  "corpus_version": "meridian-synthetic-v1",
+  "synthetic": true,
+  "preliminary": true,
+  "pages": 18,
+  "questions": 28,
+  "development_questions": 12,
+  "held_out_questions": 16,
+  "k": 3,
+  "chunk_size": 900,
+  "chunk_overlap": 150,
+  "policy": "Finalize source/configuration on development only; commit before held-out execution; run held-out once and report without tuning against it.",
+  "labels": "Author-defined synthetic references, not independent human judgments of generated answers.",
+  "metrics": [
+    "initial retrieval hit rate",
+    "mean page Recall@3",
+    "all supporting pages at 3",
+    "answerable abstention",
+    "unsupported abstention",
+    "citation validation failures",
+    "errors",
+    "mean/median/p95 latency"
+  ],
+  "files_sha256": {
+    "corpus.json": "fe87e57f9484a34c4ba137eaca2250a62e0b1e8f72e06a1d107f256da2a1568d",
+    "meridian.pdf": "4950c211e975de12354636c44f70d923b3a54c753805bac08144975aad096e53",
+    "development.jsonl": "2420c77ca13e8a08e21380c821f6864379925023f43bada8b35aa6cc037a0106",
+    "held_out.jsonl": "fdb92a97eb271e66b7b1a6e89d0e06c2e66c3d73327df105bbc36bc54189dbf8"
+  }
+}

@@ -29,7 +29,7 @@ if __name__=='__main__':
     root,dataset=prepare()
     if '--prepare-only' not in sys.argv:
         summary=run(dataset,root,k=2,output=ROOT/'results'/'smoke')
-        raw=[json.loads(line) for line in (ROOT/'results'/'smoke'/'raw.jsonl').read_text(encoding='utf-8').splitlines()]
+        raw=[json.loads(line) for line in (ROOT/'results'/'smoke'/'answers.jsonl').read_text(encoding='utf-8').splitlines()]
         assert not raw[0]['output']['abstained'] and '[synthetic.pdf, p. 1]' in raw[0]['output']['answer']
         assert not raw[1]['output']['abstained'] and '[synthetic.pdf, p. 2]' in raw[1]['output']['answer']
         assert raw[2]['output']['abstained']
