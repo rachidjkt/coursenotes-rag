@@ -180,7 +180,7 @@ def build():
     BASE.mkdir(parents=True, exist_ok=True)
     source = {'version': VERSION, 'synthetic': True, 'provenance': 'Original fictional policies authored for this project; no real merchant or customer data.',
               'pages': [{'page': i, 'title': title, 'language': language, 'text': text} for i,(title,language,text) in enumerate(PAGES,1)]}
-    (BASE/'corpus.json').write_text(json.dumps(source, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    (BASE/'corpus.json').write_text(json.dumps(source, ensure_ascii=False, indent=2)+'\n', encoding='utf-8', newline='\n')
     pdf = canvas.Canvas(str(BASE/'meridian.pdf'), invariant=1, pagesize=(612,792))
     pdf.setTitle('Meridian synthetic operations lab v1')
     pdf.setAuthor('CourseNotes synthetic fixture')
@@ -202,7 +202,7 @@ def build():
             assert any(row['support_quote'] in PAGES[ref['page']-1][2] for ref in row['sources']), row['id']
     for split, name in [('development','development.jsonl'), ('held_out','held_out.jsonl')]:
         rows = [q for q in QUESTIONS if q['split'] == split]
-        (BASE/name).write_text(''.join(json.dumps(q,ensure_ascii=False)+'\n' for q in rows), encoding='utf-8')
+        (BASE/name).write_text(''.join(json.dumps(q,ensure_ascii=False)+'\n' for q in rows), encoding='utf-8', newline='\n')
     protocol = {'corpus_version': VERSION, 'synthetic': True, 'preliminary': True,
                 'pages': 18, 'questions': 28, 'development_questions': 12, 'held_out_questions': 16,
                 'k': 3, 'chunk_size': 900, 'chunk_overlap': 150,
@@ -210,7 +210,7 @@ def build():
                 'labels': 'Author-defined synthetic references, not independent human judgments of generated answers.',
                 'metrics': ['initial retrieval hit rate', 'mean page Recall@3', 'all supporting pages at 3', 'answerable abstention', 'unsupported abstention', 'citation validation failures', 'errors', 'mean/median/p95 latency'],
                 'files_sha256': {name: hashlib.sha256((BASE/name).read_bytes()).hexdigest() for name in ('corpus.json','meridian.pdf','development.jsonl','held_out.jsonl')}}
-    (BASE/'protocol.json').write_text(json.dumps(protocol,indent=2)+'\n',encoding='utf-8')
+    (BASE/'protocol.json').write_text(json.dumps(protocol,indent=2)+'\n',encoding='utf-8', newline='\n')
     print(json.dumps({'pages':len(PAGES),'questions':len(QUESTIONS),'output':'evaluation/synthetic_v1'}))
 
 
