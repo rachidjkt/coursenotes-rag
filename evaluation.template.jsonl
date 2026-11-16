@@ -1,0 +1,3 @@
+{"id":"en-001","question":"Replace with a question supported by your English PDF","answerable":true,"sources":[{"filename":"replace.pdf","page":1}],"verified":false}
+{"id":"fr-001","question":"Remplacez par une question basée sur votre PDF français","answerable":true,"sources":[{"filename":"remplacer.pdf","page":2}],"verified":false}
+{"id":"unknown-001","question":"Replace with a question whose answer is absent from ALL indexed documents","answerable":false,"sources":[],"verified":false}

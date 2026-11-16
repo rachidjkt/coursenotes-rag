@@ -1,0 +1,15 @@
+{
+  "dataset": "original synthetic two-page fixture (local path omitted)",
+  "n": "3",
+  "answerable_n": "2",
+  "unanswerable_n": "1",
+  "k": "2",
+  "retrieval_hit_rate": "1",
+  "recall_at_k": "1.0",
+  "unanswerable_abstention_accuracy": "1",
+  "answerable_abstention_rate": "0",
+  "mean_response_seconds": "1.944107066684713",
+  "answer_correctness": "not human evaluated",
+  "relevance_check": "automatic local LLM",
+  "evidence": "Historical saved aggregate CSV inspected 2026-11-16; not rerun inference"
+}
