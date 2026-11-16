@@ -29,7 +29,8 @@ if st.button('Ask',disabled=not question.strip()):
     st.session_state.pop('result',None)
     try:
         with st.spinner('Retrieving and answering locally…'):
-            if 'assistant' not in st.session_state: st.session_state.assistant=Assistant()
+            if 'assistant' not in st.session_state:
+                st.session_state.assistant=Assistant(k=int(os.getenv('COURSENOTES_TOP_K','4')))
             st.session_state.result=st.session_state.assistant.ask(question)
     except Exception as e: st.error(str(e))
 if 'result' in st.session_state:

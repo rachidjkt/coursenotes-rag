@@ -20,7 +20,11 @@ let browserConnection;
 
 async function connect(url) {
   const ws = new WebSocket(url);
-  await new Promise((resolve,reject)=>{ws.onopen=resolve;ws.onerror=reject;});
+  await new Promise((resolve,reject)=>{
+    const timeout=setTimeout(()=>reject(Error('DevTools connection timeout')),10000);
+    ws.onopen=()=>{clearTimeout(timeout);resolve();};
+    ws.onerror=error=>{clearTimeout(timeout);reject(error);};
+  });
   let id = 0;
   const pending = new Map();
   ws.onmessage = ({data})=>{
@@ -43,14 +47,20 @@ try {
     try {version=await (await fetch('http://127.0.0.1:9337/json/version')).json();break;} catch {await delay(200);}
   }
   if(!version)throw Error('Chrome did not start.');
+  console.log('Chrome ready');
   browserConnection=await connect(version.webSocketDebuggerUrl);
   const {targetId}=await browserConnection.call('Target.createTarget',{url:'about:blank'});
+  console.log('Created browser target');
   const targets=await (await fetch('http://127.0.0.1:9337/json/list')).json();
   const page=await connect(targets.find(t=>t.id===targetId).webSocketDebuggerUrl);
+  console.log('Connected page');
   await page.call('Page.enable');
+  console.log('Page enabled');
   await page.call('Runtime.enable');
+  console.log('Runtime enabled');
   await page.call('Emulation.setDeviceMetricsOverride',{width:1440,height:1100,deviceScaleFactor:1,mobile:false});
   await page.call('Page.navigate',{url:appURL});
+  console.log('Navigated to local app');
   const evaluate=async expression=>{
     const result=await page.call('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});
     if(result.exceptionDetails)throw Error(JSON.stringify(result.exceptionDetails));
@@ -61,7 +71,7 @@ try {
     while(Date.now()<end){if(await evaluate(expression))return;await delay(200);}
     throw Error('UI wait timeout: '+expression);
   }
-  await waitFor(`document.body.innerText.includes('Synthetic Meridian corpus') && !!document.querySelector('input[type="text"]')`);
+  await waitFor(`document.body?.innerText.includes('Synthetic Meridian corpus') && !!document.querySelector('input[type="text"]')`);
   const scenarios=[
     ['english','What is the Atlas standard return window, and when does its refund arrive?'],
     ['french','Quel est le numérateur du taux de clic de campagne ?'],
@@ -81,6 +91,7 @@ try {
     await delay(500);
     const text=await evaluate(`document.querySelector('.st-key-answer').innerText`);
     if(!text.includes('coursenotes-qwen')||!text.includes('Inspect retrieved source passages'))throw Error('Missing model or source UI.');
+    if((text.match(/meridian\.pdf — page \d+/g)||[]).length!==3)throw Error('Expected the fixed demo top-k=3.');
     if(name==='unsupported'&&!text.includes('I cannot find support'))throw Error('Unsupported demonstration did not abstain.');
     if(name!=='unsupported'&&(!text.includes('[meridian.pdf, p.')||text.includes('Answer withheld')))throw Error('No accepted cited answer in demo.');
     // Capture the actual rendered app; no image edits or synthesized interface.
@@ -94,7 +105,7 @@ try {
   }
   fs.writeFileSync(path.join(output,'ui_receipt.json'),JSON.stringify({captured_utc:new Date().toISOString(),
     source:'Actual local Streamlit UI and live Qwen inference; development questions only.',
-    browser:version.Browser,scenarios:receipts},null,2)+'\n');
+    top_k:3,indexed_chunks:33,browser:version.Browser,scenarios:receipts},null,2)+'\n');
   await page.call('Page.close');
 } finally {
   if(browserConnection){try{await browserConnection.call('Browser.close');}catch{}browserConnection.close();}

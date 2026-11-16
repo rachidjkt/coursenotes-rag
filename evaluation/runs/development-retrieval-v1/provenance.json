@@ -1,0 +1,51 @@
+{
+  "started_utc": "2026-11-16T18:31:04.405406+00:00",
+  "dataset_file": "development.jsonl",
+  "dataset_sha256": "217fa0810281997eed7af2847e8ba9db556262cf437c9b5db5d53cca15440de8",
+  "corpus_version": [
+    "meridian-synthetic-v1"
+  ],
+  "splits": [
+    "development"
+  ],
+  "k": 3,
+  "indexed_chunks": 33,
+  "index_manifest": {
+    "schema_version": 2,
+    "configuration": {
+      "embedding_model": "intfloat/multilingual-e5-small",
+      "chunk_size": 900,
+      "chunk_overlap": 150,
+      "splitter": "recursive-character/v1",
+      "loader": "pypdf-physical-pages/v1",
+      "normalize_embeddings": true,
+      "document_prefix": "passage: ",
+      "query_prefix": "query: "
+    },
+    "documents": {
+      "meridian.pdf": "4950c211e975de12354636c44f70d923b3a54c753805bac08144975aad096e53"
+    },
+    "chunks": 33
+  },
+  "mode": "retrieval only",
+  "model": null,
+  "generation_settings": null,
+  "initialization_seconds": 2.1608964999977616,
+  "python": "3.12.10",
+  "packages": {
+    "langchain-core": "1.6.6",
+    "langgraph": "1.2.12",
+    "sentence-transformers": "6.1.0",
+    "pypdf": "6.19.0",
+    "numpy": "2.5.3"
+  },
+  "seed": "No request seed; temperature=0 is not a guarantee of deterministic inference.",
+  "latency_definition": "Per-question wall time; includes retrieval/check/rewrite/generation, excludes initialization/indexing.",
+  "human_correctness": "not evaluated",
+  "git_commit": "4fdbdb8cd845959a02a3035e5841ef1e1c86fa5b",
+  "evaluated_source_dirty": false,
+  "source_sha256": {
+    "core.py": "0a7466d6371b08744e2aca16b285758c473529807dc5db9476a64c131b587c5e",
+    "evaluate.py": "59de7f3a44a1c88bb98ac9bf58a70a484413c8a23a46d3a41ee63838bb555bb5"
+  }
+}

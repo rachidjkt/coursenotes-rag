@@ -1,0 +1,2 @@
+n,completed,errors,answerable_n,unanswerable_n,k,indexed_chunks,retrieval_hit_rate,recall_at_k,all_support_at_k,answerable_abstentions,unanswerable_abstentions,answerable_abstention_rate,unanswerable_abstention_accuracy,citation_validation_failures,mean_response_seconds,median_response_seconds,p95_response_seconds,answer_correctness,preliminary,metric_denominator
+12,12,0,9,3,3,33,1,1.0,1,,,,,,0.02262104166523689,0.011935700000321958,0.13948609999351902,not human evaluated,True,Successful questions only; errors are reported separately; retrieval uses initial top-k.

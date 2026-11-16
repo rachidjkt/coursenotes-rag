@@ -1,0 +1,23 @@
+{
+  "n": 12,
+  "completed": 12,
+  "errors": 0,
+  "answerable_n": 9,
+  "unanswerable_n": 3,
+  "k": 3,
+  "indexed_chunks": 33,
+  "retrieval_hit_rate": 1,
+  "recall_at_k": 1.0,
+  "all_support_at_k": 1,
+  "answerable_abstentions": 0,
+  "unanswerable_abstentions": 3,
+  "answerable_abstention_rate": 0,
+  "unanswerable_abstention_accuracy": 1,
+  "citation_validation_failures": 0,
+  "mean_response_seconds": 4.882697950000268,
+  "median_response_seconds": 4.325623299999279,
+  "p95_response_seconds": 8.67498219999834,
+  "answer_correctness": "not human evaluated",
+  "preliminary": true,
+  "metric_denominator": "Successful questions only; errors are reported separately; retrieval uses initial top-k."
+}

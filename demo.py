@@ -10,6 +10,7 @@ PROJECT = Path(__file__).resolve().parent
 os.environ['COURSENOTES_HOME'] = str(PROJECT/'.demo_runtime')
 os.environ['COURSENOTES_DOCUMENTS_DIR'] = str(PROJECT/'.demo_runtime'/'documents')
 os.environ['COURSENOTES_DEMO'] = '1'
+os.environ['COURSENOTES_TOP_K'] = '3'
 
 
 def prepare():
@@ -32,6 +33,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
     prepare()
     if not args.prepare_only:
+        from core import discover
+        # Resolve the same local endpoint once before entering Streamlit's runner.
+        os.environ['LM_STUDIO_URL'] = discover()
         subprocess.run([sys.executable, '-m', 'streamlit', 'run', str(PROJECT/'app.py'),
                         '--server.address', '127.0.0.1', '--server.port', str(args.port),
-                        '--server.headless', 'true'], check=True, cwd=PROJECT)
+                        '--server.headless', 'true', '--server.fileWatcherType', 'none'], check=True, cwd=PROJECT)

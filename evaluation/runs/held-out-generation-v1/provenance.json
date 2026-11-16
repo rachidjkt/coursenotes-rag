@@ -1,0 +1,82 @@
+{
+  "started_utc": "2026-11-16T18:32:37.575839+00:00",
+  "dataset_file": "held_out.jsonl",
+  "dataset_sha256": "428246dd972c86a5dd434d516b347b4780d378ae37920f1745c789d554e25e2e",
+  "corpus_version": [
+    "meridian-synthetic-v1"
+  ],
+  "splits": [
+    "held_out"
+  ],
+  "k": 3,
+  "indexed_chunks": 33,
+  "index_manifest": {
+    "schema_version": 2,
+    "configuration": {
+      "embedding_model": "intfloat/multilingual-e5-small",
+      "chunk_size": 900,
+      "chunk_overlap": 150,
+      "splitter": "recursive-character/v1",
+      "loader": "pypdf-physical-pages/v1",
+      "normalize_embeddings": true,
+      "document_prefix": "passage: ",
+      "query_prefix": "query: "
+    },
+    "documents": {
+      "meridian.pdf": "4950c211e975de12354636c44f70d923b3a54c753805bac08144975aad096e53"
+    },
+    "chunks": 33
+  },
+  "mode": "retrieval and generation",
+  "model": {
+    "key": "qwen/qwen3.5-9b",
+    "quantization": {
+      "name": "Q4_K_M",
+      "bits_per_weight": 4
+    },
+    "selected_variant": "qwen/qwen3.5-9b@q4_k_m",
+    "format": "gguf",
+    "loaded_identifier": "coursenotes-qwen",
+    "load_config": {
+      "context_length": 8192,
+      "eval_batch_size": 2048,
+      "physical_batch_size": 512,
+      "parallel": 4,
+      "flash_attention": true,
+      "speculative_draft_mtp": false,
+      "speculative_draft_simple": false,
+      "speculative_draft_model": "",
+      "speculative_draft_max_tokens": 16,
+      "speculative_draft_min_tokens": 0,
+      "speculative_draft_min_continue_probability": 0.75,
+      "offload_kv_cache_to_gpu": true
+    }
+  },
+  "generation_settings": {
+    "temperature": 0,
+    "max_tokens": 700,
+    "stream": false,
+    "reasoning_effort": "none",
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    }
+  },
+  "initialization_seconds": 2.7511470000026748,
+  "python": "3.12.10",
+  "packages": {
+    "langchain-core": "1.6.6",
+    "langgraph": "1.2.12",
+    "sentence-transformers": "6.1.0",
+    "pypdf": "6.19.0",
+    "numpy": "2.5.3"
+  },
+  "seed": "No request seed; temperature=0 is not a guarantee of deterministic inference.",
+  "latency_definition": "Per-question wall time; includes retrieval/check/rewrite/generation, excludes initialization/indexing.",
+  "human_correctness": "not evaluated",
+  "git_commit": "4fdbdb8cd845959a02a3035e5841ef1e1c86fa5b",
+  "evaluated_source_dirty": false,
+  "source_sha256": {
+    "core.py": "0a7466d6371b08744e2aca16b285758c473529807dc5db9476a64c131b587c5e",
+    "evaluate.py": "59de7f3a44a1c88bb98ac9bf58a70a484413c8a23a46d3a41ee63838bb555bb5"
+  }
+}

@@ -1,0 +1,13 @@
+id,question,answerable,reference_answer,expected_sources,answer,citations,factual_correctness,source_support,language_appropriate,reviewer,notes
+dev01,"What is the Atlas standard return window, and when does its refund arrive?",True,Within 21 calendar days of delivery; original-payment refund within five business days after inspection.,"[{""filename"": ""meridian.pdf"", ""page"": 1}]",,[],,,,,
+dev02,"For Boreal, must goods remain sealed, and is the remedy bank money or store credit?",True,"Goods must remain sealed; Boreal grants store credit, not a bank refund.","[{""filename"": ""meridian.pdf"", ""page"": 2}]",,[],,,,,
+dev03,Combien de temps la garantie Atlas couvre-t-elle les défauts de fabrication ?,True,90 jours calendaires après livraison; la réparation est le remède.,"[{""filename"": ""meridian.pdf"", ""page"": 3}]",,[],,,,,
+dev04,Does a quarantine inspection hold automatically release units after twelve hours?,True,No; only a warehouse manager can release them after an inspection decision.,"[{""filename"": ""meridian.pdf"", ""page"": 4}]",,[],,,,,
+dev05,What are the urban dispatch cutoff and delivery target?,True,Before 16:00 local warehouse time; two business days after dispatch.,"[{""filename"": ""meridian.pdf"", ""page"": 6}]",,[],,,,,
+dev06,Peut-on collecter les événements analytiques facultatifs sans consentement explicite ?,True,Non; la collecte exige un consentement explicite et le refus ne bloque pas le paiement.,"[{""filename"": ""meridian.pdf"", ""page"": 8}]",,[],,,,,
+dev07,"How is checkout conversion defined, and are known bots eligible sessions?",True,Settled orders divided by eligible sessions; known bot sessions are excluded.,"[{""filename"": ""meridian.pdf"", ""page"": 10}]",,[],,,,,
+dev08,Quel est le numérateur du taux de clic de campagne ?,True,Le nombre de destinataires uniques ayant cliqué; les achats en sont exclus.,"[{""filename"": ""meridian.pdf"", ""page"": 12}]",,[],,,,,
+dev09,"Do shipping charges earn loyalty points, and when do unused points expire?",True,Shipping does not earn points; unused points expire 180 days from award.,"[{""filename"": ""meridian.pdf"", ""page"": 16}]",,[],,,,,
+dev10,What is the personal email address of the Atlas returns manager?,False,Unsupported: no staff contact directory is provided.,[],,[],,,,,
+dev11,Combien d’unités du produit PINE-42 sont disponibles en ce moment ?,False,Non documenté: aucun solde de stock réel par produit.,[],,[],,,,,
+dev12,How many real shoppers completed checkout yesterday?,False,"Unsupported: the corpus supplies definitions, not observed shopping counts.",[],,[],,,,,
