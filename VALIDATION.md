@@ -1,4 +1,4 @@
-# Current validation ? targeted portfolio update, 2026-11-16
+# Validation record: 2026-11-16
 
 This section records the current implementation. Earlier baseline notes are preserved below as historical evidence and do not describe the current loaded-model status.
 
@@ -68,3 +68,32 @@ A first guard-test attempt encountered sandbox temporary-directory permissions; 
 The existing September 30 validation note reports real local Qwen 3.5 9B generation and a synthetic Streamlit Ask interaction. Its saved aggregate CSV was inspected during preparation and supports: 3 questions, k=2, retrieval hit rate 1.0, mean Recall@2 1.0, unanswerable abstention 1/1, answerable abstention 0/2, mean response time 1.944107066684713 seconds. A sanitized transcription is in `evidence/historical_synthetic_summary.json`.
 
 Those are historical synthetic results from the original environment, not a newly reproduced inference run or a course benchmark. Page-citation correctness does not establish semantic answer correctness. Human answer correctness and real-course quality remain unmeasured. Private raw questions/passages/results are excluded from publication.
+
+
+## Reproduction and configuration reference
+
+The following commands document deliberate reproduction, not checks rerun for the November 20 documentation polish. They require the local Qwen model and embedding setup described in the README. Use new output directories to preserve the saved results.
+
+```powershell
+.\.venv\Scripts\python.exe demo.py --prepare-only
+$env:COURSENOTES_HOME = (Join-Path (Get-Location) '.demo_runtime')
+.\.venv\Scripts\python.exe evaluate.py evaluation/synthetic_v1/development.jsonl --k 3 --retrieval-only --output evaluation/runs/my-dev-retrieval
+.\.venv\Scripts\python.exe evaluate.py evaluation/synthetic_v1/development.jsonl --k 3 --output evaluation/runs/my-dev-generation
+# Freeze source/configuration before held-out use; do not tune on its results.
+.\.venv\Scripts\python.exe evaluate.py evaluation/synthetic_v1/held_out.jsonl --k 3 --retrieval-only --output evaluation/runs/my-held-retrieval
+.\.venv\Scripts\python.exe evaluate.py evaluation/synthetic_v1/held_out.jsonl --k 3 --output evaluation/runs/my-held-generation
+```
+
+The released held-out set is visible; rerunning it is not a new independent evaluation. `COURSENOTES_HOME` relocates indexes/results and default document/cache folders. `COURSENOTES_DOCUMENTS_DIR` selects authorized PDFs, `COURSENOTES_CACHE_DIR` selects an existing embedding cache, and `COURSENOTES_EMBED_MODEL` changes embeddings and requires reindexing. Set variables before starting Python; `.env.example` is not loaded automatically. `LM_STUDIO_URL` must be loopback HTTP; otherwise CLI discovery locates the server. `COURSENOTES_MODEL` selects a loaded model or identifier, and `LM_STUDIO_API_TOKEN` is local-only if authentication is enabled. The demo fixes its own documents/runtime and k=3; the normal app defaults to k=4 via `COURSENOTES_TOP_K`.
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest -v test_safety test_evaluation
+.\.venv\Scripts\python.exe core.py check
+```
+
+The connectivity command requires the loaded local model. Missing, legacy, or incompatible manifests require reindexing with `python core.py index` under the correct runtime/document settings. Loading validates configuration but does not rehash the current document folder; content hashes are checked during indexing. Temperature zero does not guarantee identical inference across hardware or runs.
+
+
+## Documentation review: 2026-11-20
+
+Reviewed the published source, dependency declarations, Git history, and saved evidence against the README. Checked Markdown fences, relative links, screenshot paths where applicable, and whitespace. The update changes documentation only; runtime source, notebooks, configurations, scores, and evidence files are preserved. No dependency installation, model/data download, training, or held-out evaluation was performed. Historical execution results above were not rerun.
